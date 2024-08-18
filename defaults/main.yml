@@ -1,0 +1,15 @@
+---
+standardnotes_db_host: 'db'
+standardnotes_db_port: 3306
+standardnotes_db_username: 'std_notes_usr'
+standardnotes_db_password: 'changeme123'
+standardnotes_db_database: 'standard_notes_db'
+standardnotes_db_type: 'mysql'
+
+standardnotes_redis_port: 6379
+standardnotes_redis_host: 'cache'
+standardnotes_cache_type: 'redis'
+
+standardnotes_jwt_secret: ''
+standardnotes_server_encryption_server_key: ''
+standardnotes_valet_token_secret: ''
