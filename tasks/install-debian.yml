@@ -1,0 +1,72 @@
+---
+- name: "Create stanardnotes working directory"
+  ansible.builtin.file:
+    state: directory
+    path: '{{ standardnotes_working_directory }}'
+    mode: "0700"
+
+- name: "Create stanardnotes jwt secret"
+  ansible.builtin.shell: 
+    cmd: 'openssl rand -hex 32'
+    chdir: "{{ standardnotes_working_directory }}/"
+  register: jwt_secret_output
+
+- name: "Set jwt secret variable"
+  ansible.builtin.set_fact:
+    standardnotes_jwt_secret: '{{ jwt_secret_output.stdout }}'
+
+- name: "Create stanardnotes server encryption server key"
+  ansible.builtin.shell: 
+    cmd: 'openssl rand -hex 32'
+    chdir: "{{ standardnotes_working_directory }}/"
+  register: server_encryption_server_key
+
+- name: "Set server encryption server key"
+  ansible.builtin.set_fact:
+    standardnotes_server_encryption_server_key: '{{ server_encryption_server_key.stdout }}'
+
+- name: "Create stanardnotes valet token secret"
+  ansible.builtin.shell: 
+    cmd: 'openssl rand -hex 32'
+    chdir: "{{ standardnotes_working_directory }}/"
+  register: valet_token_secret
+
+- name: "Set valet token secret"
+  ansible.builtin.set_fact:
+    standardnotes_valet_token_secret: '{{ valet_token_secret.stdout }}'
+
+- name: "Create stanardnotes .env file"
+  ansible.builtin.get_url:
+    url: 'https://raw.githubusercontent.com/standardnotes/server/main/.env.sample'
+    dest: '{{ standardnotes_working_directory }}/.env'
+    mode: "0700"
+
+- name: "Get LocalStack bootstrap script"
+  ansible.builtin.get_url:
+    url: 'https://raw.githubusercontent.com/standardnotes/server/main/docker/localstack_bootstrap.sh'
+    dest: '{{ standardnotes_working_directory }}/localstack_bootstrap.sh'
+    mode: "0700"
+
+- name: "Get docker compose file"
+  ansible.builtin.get_url:
+    url: 'https://raw.githubusercontent.com/standardnotes/server/main/docker-compose.example.yml'
+    dest: '{{ standardnotes_working_directory }}/docker-compose.yml'
+    mode: "0700"
+
+- name: "Edit jwt secret in .env"
+  ansible.builtin.lineinfile:
+    path: '{{ standardnotes_working_directory }}/.env'
+    regexp: '^AUTH_JWT_SECRET='
+    line: 'AUTH_JWT_SECRET={{ standardnotes_jwt_secret }}'
+
+- name: "Edit server encryption server key in .env"
+  ansible.builtin.lineinfile:
+    path: '{{ standardnotes_working_directory }}/.env'
+    regexp: '^AUTH_SERVER_ENCRYPTION_SERVER_KEY='
+    line: 'AUTH_SERVER_ENCRYPTION_SERVER_KEY={{ standardnotes_server_encryption_server_key }}'
+
+- name: "Edit valet token secret in .env"
+  ansible.builtin.lineinfile:
+    path: '{{ standardnotes_working_directory }}/.env'
+    regexp: '^VALET_TOKEN_SECRET='
+    line: 'VALET_TOKEN_SECRET={{ standardnotes_valet_token_secret }}'

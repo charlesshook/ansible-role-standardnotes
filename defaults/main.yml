@@ -1,4 +1,6 @@
 ---
+standardnotes_working_directory: 'standardnotes'
+
 standardnotes_db_host: 'db'
 standardnotes_db_port: 3306
 standardnotes_db_username: 'std_notes_usr'
