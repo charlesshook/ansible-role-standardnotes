@@ -8,7 +8,7 @@ on:
     
 defaults:
   run:
-    working-directory: 'charlesshook.lynis'
+    working-directory: 'charlesshook.standardnotes'
 
 jobs:
   release:
@@ -18,7 +18,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v4
         with:
-          path: 'charlesshook.lynis'
+          path: 'charlesshook.standardnotes'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
