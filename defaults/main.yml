@@ -1,0 +1,11 @@
+---
+standardnotes_working_directory: 'standardnotes'
+standardnotes_port: 3000
+
+standardnotes_db_username: 'std_notes_usr'
+standardnotes_db_password: 'changeme123'
+standardnotes_db_root_password: 'changeme123'
+
+standardnotes_auth_jwt_secret: ''
+standardnotes_auth_server_encryption_server_key: ''
+standardnotes_valet_token_secret: ''

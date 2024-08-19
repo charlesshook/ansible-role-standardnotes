@@ -1,0 +1,15 @@
+galaxy_info:
+  role_name: standardnotes
+  author: Charles Shook
+  description: Installs Standard Notes on Linux.
+  license: MIT
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+
+  galaxy_tags: [
+    standardnotes
+  ]
