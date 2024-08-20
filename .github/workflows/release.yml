@@ -19,7 +19,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: 'charlesshook.standardnotes'
-          persist-credentials: false
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
